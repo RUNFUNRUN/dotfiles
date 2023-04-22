@@ -58,15 +58,15 @@ chatgpt		keycastr	skim
 
 
 ```
-$ npm ls --location=global
-/Users/runfunrun/.nodebrew/node/v17.9.1/lib
+$ npm ls -g
+/Users/runfunrun/.nodebrew/node/v20.0.0/lib
 ├── @githubnext/github-copilot-cli@0.1.33
-├── corepack@0.10.0
+├── corepack@0.17.2
 ├── instant-markdown-d@0.2.0
 ├── live-server@1.2.2
 ├── neovim@4.10.1
-├── npm@8.11.0
-├── prettier@2.7.1
-├── tree-sitter-cli@0.20.7
+├── npm@9.6.4
+├── prettier@2.8.7
+├── tree-sitter-cli@0.20.8
 └── typescript@5.0.4
 ```
