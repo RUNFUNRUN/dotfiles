@@ -1,5 +1,7 @@
 # dotfiles
 
+Font: `DroidSansMono Nerd Font`
+
 ```
 $ brew leaves -r
 deno
