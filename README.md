@@ -1,7 +1,7 @@
 # dotfiles
 
 ```
-brew list
+$ brew list
 ==> Formulae
 autoconf		libidn2			openjpeg
 bdw-gc			libksba			openssl@1.1
@@ -50,9 +50,15 @@ adoptopenjdk	iterm2		mactex
 chatgpt		keycastr	skim
 ```
 
+```
+$ brew list --cask
+adoptopenjdk	iterm2		mactex
+chatgpt		keycastr	skim
+```
+
 
 ```
-npm ls --location=global
+$ npm ls --location=global
 /Users/runfunrun/.nodebrew/node/v17.9.1/lib
 ├── @githubnext/github-copilot-cli@0.1.33
 ├── corepack@0.10.0
