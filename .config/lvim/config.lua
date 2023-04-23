@@ -10,16 +10,6 @@ lvim.plugins = {
 
 require('notebook')
 
-require 'lspconfig'.lua_ls.setup {
-  settings = {
-    Lua = {
-      workspace = {
-        checkThirdParty = false,
-      },
-    },
-  },
-}
-
 -- vim options
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
