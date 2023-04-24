@@ -1,12 +1,36 @@
 -- plugins
 lvim.plugins = {
   { "github/copilot.vim" },
+  { "CRAG666/code_runner.nvim", config = true },
   { "machakann/vim-sandwich" },
   { "preservim/tagbar" },
   { "suan/vim-instant-markdown" },
   { "meatballs/notebook.nvim" },
   { "sophacles/vim-processing" }
 }
+
+require('code_runner').setup({
+  -- put here the commands by filetype
+  filetype = {
+    c = {
+      "cd $dir &&",
+      "gcc $fileName -o $fileNameWithoutExt &&",
+      "$dir/$fileNameWithoutExt"
+    },
+    java = {
+      "cd $dir &&",
+      "javac $fileName &&",
+      "java $fileNameWithoutExt"
+    },
+    python = "python3 -u",
+    typescript = "deno run",
+    rust = {
+      "cd $dir &&",
+      "rustc $fileName &&",
+      "$dir/$fileNameWithoutExt"
+    },
+  },
+})
 
 require('notebook')
 
@@ -22,6 +46,14 @@ vim.api.nvim_set_keymap('i', '<Right>', 'copilot#Accept("")', { expr = true, sil
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_assume_mapped = true
 
+local notify = vim.notify
+vim.notify = function(msg, ...)
+  if msg:match("warning: multiple different client offset_encodings") then
+    return
+  end
+  notify(msg, ...)
+end
+
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save.enabled = true
@@ -31,6 +63,11 @@ lvim.transparent_window = true
 -- add your own keymapping
 lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
+lvim.builtin.which_key.mappings["r"] = {
+  name = "Code Runner",
+  r = { "<cmd>RunCode<CR>", "Run" },
+  c = { "<cmd>RunClose<CR>", "Close" }
+}
 lvim.builtin.which_key.mappings["t"] = { "<cmd>TagbarToggle<CR>", "Tagbar" }
 
 --theme settings
