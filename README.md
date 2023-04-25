@@ -20,7 +20,7 @@ nodebrew
 pyenv
 python@3.10
 rbenv
-rust
+rustup-init
 teamookla/speedtest/speedtest
 telnet
 tmux

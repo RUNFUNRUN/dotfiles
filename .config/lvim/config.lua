@@ -1,10 +1,14 @@
 -- plugins
 lvim.plugins = {
   { "github/copilot.vim" },
-  { "CRAG666/code_runner.nvim", config = true },
+  { "CRAG666/code_runner.nvim",
+    config = true
+  },
   { "machakann/vim-sandwich" },
   { "preservim/tagbar" },
   { "suan/vim-instant-markdown" },
+  { "norcalli/nvim-colorizer.lua" },
+  { "jsborjesson/vim-uppercase-sql" },
   { "meatballs/notebook.nvim" },
   { "sophacles/vim-processing" }
 }
