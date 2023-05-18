@@ -7,8 +7,8 @@ lvim.plugins = {
   { "machakann/vim-sandwich" },
   { "preservim/tagbar" },
   { "suan/vim-instant-markdown" },
-  { "norcalli/nvim-colorizer.lua" },
   { "jsborjesson/vim-uppercase-sql" },
+  { "uga-rosa/ccc.nvim" },
   { "meatballs/notebook.nvim" },
   { "sophacles/vim-processing" }
 }
@@ -26,14 +26,25 @@ require('code_runner').setup({
       "javac $fileName &&",
       "java $fileNameWithoutExt"
     },
-    python = "python3 -u",
+    python = "python3",
     typescript = "deno run",
     rust = {
       "cd $dir &&",
       "rustc $fileName &&",
       "$dir/$fileNameWithoutExt"
     },
+    go = "go run",
+    tex = "latexmk -pvc"
   },
+})
+
+require("ccc").setup({
+  highlighter = {
+    auto_enable = true,
+    filetypes = {
+      "css", "html", "astro", "tsx"
+    }
+  }
 })
 
 require('notebook')
@@ -73,6 +84,7 @@ lvim.builtin.which_key.mappings["r"] = {
   c = { "<cmd>RunClose<CR>", "Close" }
 }
 lvim.builtin.which_key.mappings["t"] = { "<cmd>TagbarToggle<CR>", "Tagbar" }
+lvim.builtin.which_key.mappings["i"] = { "<cmd>CccPick<CR>", "Color Picker" }
 
 --theme settings
 lvim.colorscheme = "tokyonight"
