@@ -115,7 +115,6 @@ lvim.builtin.which_key.mappings["k"] = {
     n = { "<Cmd>Lspsaga diagnostic_jump_next<CR>", "Next" },
   }
 }
--- lvim.builtin.which_key.maapings
 
 --theme settings
 lvim.colorscheme = "tokyonight"
