@@ -43,6 +43,9 @@ require("code_runner").setup({
 require("lspsaga").setup({
   symbol_in_winbar = {
     enable = false
+  },
+  lightbulb = {
+    enable = false
   }
 })
 
