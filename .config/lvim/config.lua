@@ -5,15 +5,19 @@ lvim.plugins = {
     config = true
   },
   { "machakann/vim-sandwich" },
-  { "preservim/tagbar" },
+  { "nvimdev/lspsaga.nvim" },
   { "suan/vim-instant-markdown" },
-  { "jsborjesson/vim-uppercase-sql" },
   { "uga-rosa/ccc.nvim" },
+  { "MunifTanjim/nui.nvim" },
+  { "folke/noice.nvim" },
+  { "windwp/nvim-ts-autotag" },
+  { "jsborjesson/vim-uppercase-sql" },
+  { "preservim/tagbar" },
   { "meatballs/notebook.nvim" },
   { "sophacles/vim-processing" }
 }
 
-require('code_runner').setup({
+require("code_runner").setup({
   -- put here the commands by filetype
   filetype = {
     c = {
@@ -38,6 +42,12 @@ require('code_runner').setup({
   },
 })
 
+require("lspsaga").setup({
+  symbol_in_winbar = {
+    enable = false
+  }
+})
+
 require("ccc").setup({
   highlighter = {
     auto_enable = true,
@@ -47,16 +57,38 @@ require("ccc").setup({
   }
 })
 
+require("noice").setup({
+  lsp = {
+    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+    override = {
+      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+      ["vim.lsp.util.stylize_markdown"] = true,
+      ["cmp.entry.get_documentation"] = true,
+    },
+  },
+  -- you can enable a preset for easier configuration
+  presets = {
+    bottom_search = true, -- use a classic bottom cmdline for search
+    command_palette = true, -- position the cmdline and popupmenu together
+    long_message_to_split = true, -- long messages will be sent to a split
+    inc_rename = false, -- enables an input dialog for inc-rename.nvim
+    lsp_doc_border = false, -- add a border to hover docs and signature help
+  },
+})
+
+-- require("nvim-ts-autotag").setup()
+
 require('notebook')
 
 -- vim options
+local opts = { noremap = true, silent = true }
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.clipboard = "unnamedplus"
 vim.opt.fileencoding = "utf-8"
 vim.opt.undofile = true
-vim.keymap.set('i', 'jj', '<Esc>', { noremap = true, silent = true })
-vim.keymap.set('n', '<Esc><Esc>', ':nohlsearch<CR>', { noremap = true, silent = true })
+vim.keymap.set('i', 'jj', '<Esc>', opts)
+vim.keymap.set('n', '<Esc><Esc>', ':nohlsearch<CR>', opts)
 vim.api.nvim_set_keymap('i', '<Right>', 'copilot#Accept("")', { expr = true, silent = true })
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_assume_mapped = true
@@ -76,8 +108,10 @@ lvim.leader = "space"
 lvim.transparent_window = true
 
 -- add your own keymapping
-lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
-lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
+lvim.keys.normal_mode["<S-l>"] = "<Cmd>BufferLineCycleNext<CR>"
+lvim.keys.normal_mode["<S-h>"] = "<Cmd>BufferLineCyclePrev<CR>"
+lvim.keys.normal_mode["K"] = "<Cmd>Lspsaga hover_doc<CR>"
+lvim.lsp.buffer_mappings.normal_mode['K'] = nil
 lvim.builtin.which_key.mappings["r"] = {
   name = "Code Runner",
   r = { "<cmd>RunCode<CR>", "Run" },
@@ -85,6 +119,24 @@ lvim.builtin.which_key.mappings["r"] = {
 }
 lvim.builtin.which_key.mappings["t"] = { "<cmd>TagbarToggle<CR>", "Tagbar" }
 lvim.builtin.which_key.mappings["i"] = { "<cmd>CccPick<CR>", "Color Picker" }
+lvim.builtin.which_key.mappings["k"] = {
+  name = "LSPsaga",
+  k = { "<Cmd>Lspsaga hover_doc<CR>", "Hover Doc" },
+  l = { "<Cmd>Lspsaga hover_doc ++keep<CR>", "Hover Doc (Keep)" },
+  f = { "<Cmd>Lspsaga lsp_finder<CR>", "Finder" },
+  r = { "<Cmd>Lspsaga rename<CR>", "Rename" },
+  p = { "<Cmd>Lspsaga rename ++project<CR>", "Rename (Project)" },
+  o = { "<Cmd>Lspsaga outline<CR>", "Outline" },
+  d = {
+    name = "Diagnostics",
+    d = { "<Cmd>Lspsaga show_workspace_diagnostics<CR>", "Workspace" },
+    b = { "<Cmd>Lspsaga show_buf_diagnostics<CR>", "Buffer" },
+    c = { "<Cmd>Lspsaga show_cursor_diagnostics<CR>", "Cursor" },
+    p = { "<Cmd>Lspsaga diagnostic_jump_prev<CR>", "Previous" },
+    n = { "<Cmd>Lspsaga diagnostic_jump_next<CR>", "Next" },
+  }
+}
+-- lvim.builtin.which_key.maapings
 
 --theme settings
 lvim.colorscheme = "tokyonight"
