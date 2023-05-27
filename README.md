@@ -40,6 +40,7 @@ chatgpt		keycastr	skim
 $ npm ls -g
 /Users/runfunrun/.nodebrew/node/v20.0.0/lib
 ├── @githubnext/github-copilot-cli@0.1.33
+├── @nestjs/cli@9.5.0
 ├── corepack@0.18.0
 ├── create-next-app@13.4.3
 ├── firebase-tools@12.0.1
