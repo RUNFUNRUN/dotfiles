@@ -1,7 +1,8 @@
 -- plugins
 lvim.plugins = {
   { "github/copilot.vim" },
-  { "CRAG666/code_runner.nvim",
+  {
+    "CRAG666/code_runner.nvim",
     config = true
   },
   { "machakann/vim-sandwich" },
@@ -53,7 +54,7 @@ require("ccc").setup({
   highlighter = {
     auto_enable = true,
     filetypes = {
-      "css", "html", "astro", "tsx"
+      "css", "html", "astro", "tsx", "conf", "yml", "ini"
     }
   }
 })
