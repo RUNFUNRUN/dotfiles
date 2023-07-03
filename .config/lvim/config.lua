@@ -88,7 +88,7 @@ end
 lvim.log.level = "warn"
 lvim.format_on_save.enabled = true
 lvim.leader = "space"
-lvim.transparent_window = true
+-- lvim.transparent_window = true
 
 -- add your own keymapping
 lvim.keys.normal_mode["<S-l>"] = "<Cmd>BufferLineCycleNext<CR>"
