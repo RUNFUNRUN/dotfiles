@@ -22,7 +22,7 @@ button {
 }
 
 button:hover#lock {
-	background-color: #323282;
+	background-color: #6464c8;
 	/* background-size: 25%; */
 	/* margin-right : 30px; */
 	/* margin-bottom : 30px; */
@@ -32,7 +32,7 @@ button:hover#lock {
 }
 
 button:hover#logout {
-	background-color: #323282;
+	background-color: #6464c8;
 	/* background-size: 25%; */
 	/* margin-right : 30px; */
 	/* margin-top : 30px; */
@@ -42,7 +42,7 @@ button:hover#logout {
 }
 
 button:hover#shutdown {
-	background-color: #323282;
+	background-color: #6464c8;
 	/* background-size: 25%; */
 	/* margin-left : 20px; */
 	/* margin-bottom : 30px; */
@@ -52,7 +52,7 @@ button:hover#shutdown {
 }
 
 button:hover#reboot {
-	background-color: #323282;
+	background-color: #6464c8;
 	/* background-size: 25%; */
 	/* margin-left : 30px; */
 	/* margin-top : 30px; */
@@ -62,7 +62,7 @@ button:hover#reboot {
 }
 
 button:hover#suspend {
-	background-color: #323282;
+	background-color: #6464c8;
 	/* background-size: 25%; */
 	/* margin-left : 30px; */
 	/* margin-top : 30px; */
@@ -72,7 +72,7 @@ button:hover#suspend {
 }
 
 button:hover#hibernate {
-	background-color: #323282;
+	background-color: #6464c8;
 	/* background-size: 25%; */
 	/* margin-left : 30px; */
 	/* margin-top : 30px; */
