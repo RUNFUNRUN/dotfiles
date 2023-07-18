@@ -16,6 +16,7 @@ set noswapfile
 set cursorline
 set laststatus=2
 set mouse=a
+set nowrap
 inoremap jj <Esc>
 nnoremap <Esc><Esc> :noh<CR>
 highlight Normal ctermfg=white ctermbg=16
