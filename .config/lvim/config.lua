@@ -76,13 +76,15 @@ vim.api.nvim_set_keymap('i', '<Right>', 'copilot#Accept("")', { expr = true, sil
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_assume_mapped = true
 
-local notify = vim.notify
-vim.notify = function(msg, ...)
+-- Hide the warning when opening a C file
+local original_notify = vim.notify
+local function custom_notify(msg, ...)
   if msg:match("warning: multiple different client offset_encodings") then
     return
   end
-  notify(msg, ...)
+  original_notify(msg, ...)
 end
+vim.notify = custom_notify
 
 -- general
 lvim.log.level = "warn"
@@ -147,3 +149,70 @@ lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 
 -- Automatically install missing parsers when entering buffer
 lvim.builtin.treesitter.auto_install = true
+
+-- linting
+local linters = require "lvim.lsp.null-ls.linters"
+
+local function is_eslint_config_present()
+  -- Check if eslint config file is present in the project root
+  local eslintrc = vim.fn.glob('.eslintrc.json')
+      or vim.fn.glob('.eslintrc.js')
+      or vim.fn.glob('.eslintrc.yml')
+
+  -- Or check if eslintConfig is present in package.json
+  local package_json = vim.fn.glob('package.json')
+  if package_json ~= '' then
+    local content_lines = vim.fn.readfile(package_json)
+    local content = table.concat(content_lines) -- Concatenate all lines into a single string
+    if string.match(content, '"eslint"') then
+      return true
+    end
+  end
+
+  return eslintrc ~= ''
+end
+
+if is_eslint_config_present() then
+  linters.setup {
+    {
+      exe = "eslint",
+      filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact", "astro" },
+    },
+  }
+end
+
+-- formatter
+local formatters = require "lvim.lsp.null-ls.formatters"
+
+local function is_prettier_config_present()
+  -- Check if prettier config file is present in the project root
+  local prettierrc = vim.fn.glob('.prettierrc')
+      or vim.fn.glob('.prettierrc.json')
+      or vim.fn.glob('.prettierrc.yaml')
+      or vim.fn.glob('.prettierrc.yml')
+      or vim.fn.glob('.prettierrc.toml')
+      or vim.fn.glob('.prettierrc.js')
+      or vim.fn.glob('prettier.config.js')
+      or vim.fn.glob('.prettierignore')
+
+  -- Or check if prettier is present in package.json
+  local package_json = vim.fn.glob('package.json')
+  if package_json ~= '' then
+    local content_lines = vim.fn.readfile(package_json)
+    local content = table.concat(content_lines) -- Concatenate all lines into a single string
+    if string.match(content, '"prettier"') then
+      return true
+    end
+  end
+
+  return prettierrc ~= ''
+end
+
+if is_prettier_config_present() then
+  formatters.setup {
+    {
+      exe = "prettier",
+      filetypes = { "javascript", "typescript", "typescriptreact", "json", "html", "css", "scss", "markdown" },
+    },
+  }
+end
