@@ -150,7 +150,7 @@ lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 -- Automatically install missing parsers when entering buffer
 lvim.builtin.treesitter.auto_install = true
 
--- linting
+-- linter
 local linters = require "lvim.lsp.null-ls.linters"
 
 local function is_eslint_config_present()
