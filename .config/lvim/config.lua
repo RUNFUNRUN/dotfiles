@@ -159,7 +159,7 @@ local function is_eslint_config_present()
       or vim.fn.glob('.eslintrc.js')
       or vim.fn.glob('.eslintrc.yml')
 
-  -- Or check if eslintConfig is present in package.json
+  -- Or check if eslint is present in package.json
   local package_json = vim.fn.glob('package.json')
   if package_json ~= '' then
     local content_lines = vim.fn.readfile(package_json)
