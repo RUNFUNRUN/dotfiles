@@ -12,6 +12,7 @@ lvim.plugins = {
   { "windwp/nvim-ts-autotag" },
   { "jsborjesson/vim-uppercase-sql" },
   { "preservim/tagbar" },
+  { "monaqa/dial.nvim" },
   { "meatballs/notebook.nvim" },
   { "sophacles/vim-processing" }
 }
@@ -70,8 +71,9 @@ vim.opt.tabstop = 2
 vim.opt.clipboard = "unnamedplus"
 vim.opt.fileencoding = "utf-8"
 vim.opt.undofile = true
+vim.g.denops_server_addr = '127.0.0.1:32123'
 vim.keymap.set('i', 'jj', '<Esc>', opts)
-vim.keymap.set('n', '<Esc><Esc>', ':nohlsearch<CR>', opts)
+vim.keymap.set('n', '<Esc><Esc>', '<Cmd>nohlsearch<CR>', opts)
 vim.api.nvim_set_keymap('i', '<Right>', 'copilot#Accept("")', { expr = true, silent = true })
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_assume_mapped = true
@@ -96,6 +98,7 @@ lvim.leader = "space"
 lvim.keys.normal_mode["<S-l>"] = "<Cmd>BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-h>"] = "<Cmd>BufferLineCyclePrev<CR>"
 lvim.keys.normal_mode["K"] = "<Cmd>Lspsaga hover_doc<CR>"
+lvim.keys.insert_mode["<C-j>"] = "<Plug>(skkeleton-toggle)"
 lvim.lsp.buffer_mappings.normal_mode['K'] = nil
 lvim.builtin.which_key.mappings["r"] = {
   name = "Code Runner",
