@@ -55,7 +55,7 @@ require("ccc").setup({
   highlighter = {
     auto_enable = true,
     filetypes = {
-      "css", "html", "astro", "tsx", "conf", "yml", "ini"
+      "css", "html", "astro", "tsx", "jsx", "conf", "yml", "ini"
     }
   }
 })
@@ -63,6 +63,10 @@ require("ccc").setup({
 require("nvim-ts-autotag").setup()
 
 require("notebook")
+
+require("luasnip").filetype_extend("typescriptreact", { "html" })
+
+require("luasnip").filetype_extend("javascriptreact", { "html" })
 
 -- vim options
 local opts = { noremap = true, silent = true }
@@ -225,7 +229,8 @@ if is_prettier_config_present() then
   formatters.setup {
     {
       exe = "prettier",
-      filetypes = { "javascript", "typescript", "typescriptreact", "json", "html", "css", "scss", "markdown" },
+      filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "json", "html", "css", "scss",
+        "markdown" },
     },
   }
 end
