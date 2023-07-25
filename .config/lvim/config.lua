@@ -62,16 +62,15 @@ require("ccc").setup({
 
 require("nvim-ts-autotag").setup()
 
-require('notebook')
+require("notebook")
 
 -- vim options
 local opts = { noremap = true, silent = true }
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
-vim.opt.clipboard = "unnamedplus"
+vim.opt.clipboard = 'unnamedplus'
 vim.opt.fileencoding = "utf-8"
 vim.opt.undofile = true
-vim.g.denops_server_addr = '127.0.0.1:32123'
 vim.keymap.set('i', 'jj', '<Esc>', opts)
 vim.keymap.set('n', '<Esc><Esc>', '<Cmd>nohlsearch<CR>', opts)
 vim.api.nvim_set_keymap('i', '<Right>', 'copilot#Accept("")', { expr = true, silent = true })
