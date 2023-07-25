@@ -13,8 +13,7 @@ lvim.plugins = {
   { "jsborjesson/vim-uppercase-sql" },
   { "preservim/tagbar" },
   { "monaqa/dial.nvim" },
-  { "meatballs/notebook.nvim" },
-  { "sophacles/vim-processing" }
+  { "meatballs/notebook.nvim" }
 }
 
 require("code_runner").setup({
