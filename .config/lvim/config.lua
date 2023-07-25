@@ -123,6 +123,13 @@ lvim.builtin.which_key.mappings["k"] = {
     n = { "<Cmd>Lspsaga diagnostic_jump_next<CR>", "Next" },
   }
 }
+lvim.builtin.which_key.mappings["W"] = {
+  name = "Window resize",
+  h = { "<Cmd>vertical resize -5<CR>", "Left" },
+  l = { "<Cmd>vertical resize +5<CR>", "Right" },
+  k = { "<Cmd>resize -5<CR>", "Up" },
+  j = { "<Cmd>resize +5<CR>", "Down" },
+}
 
 --theme settings
 lvim.colorscheme = "tokyonight"
