@@ -105,7 +105,7 @@ lvim.builtin.which_key.mappings["r"] = {
   c = { "<Cmd>RunClose<CR>", "Close" }
 }
 lvim.builtin.which_key.mappings["R"] = {
-  "<Cmd>%s/。/．/g<CR> <Cmd>%s/、/，/g<CR>",
+  "<Cmd>%s/。/．/g<CR> <Cmd>%s/、/，/g<CR> <Cmd>noh<CR>",
   "Replace symbol for TeX"
 }
 lvim.builtin.which_key.mappings["t"] = { "<cmd>TagbarToggle<CR>", "Tagbar" }
