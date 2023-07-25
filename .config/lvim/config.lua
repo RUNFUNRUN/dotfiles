@@ -101,8 +101,12 @@ lvim.keys.insert_mode["<C-j>"] = "<Plug>(skkeleton-toggle)"
 lvim.lsp.buffer_mappings.normal_mode['K'] = nil
 lvim.builtin.which_key.mappings["r"] = {
   name = "Code Runner",
-  r = { "<cmd>RunCode<CR>", "Run" },
-  c = { "<cmd>RunClose<CR>", "Close" }
+  r = { "<Cmd>RunCode<CR>", "Run" },
+  c = { "<Cmd>RunClose<CR>", "Close" }
+}
+lvim.builtin.which_key.mappings["R"] = {
+  "<Cmd>%s/。/．/g<CR> <Cmd>%s/、/，/g<CR>",
+  "Replace symbol for TeX"
 }
 lvim.builtin.which_key.mappings["t"] = { "<cmd>TagbarToggle<CR>", "Tagbar" }
 lvim.builtin.which_key.mappings["i"] = { "<cmd>CccPick<CR>", "Color Picker" }
