@@ -100,7 +100,6 @@ lvim.leader = "space"
 lvim.keys.normal_mode["<S-l>"] = "<Cmd>BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-h>"] = "<Cmd>BufferLineCyclePrev<CR>"
 lvim.keys.normal_mode["K"] = "<Cmd>Lspsaga hover_doc<CR>"
-lvim.keys.insert_mode["<C-j>"] = "<Plug>(skkeleton-toggle)"
 lvim.lsp.buffer_mappings.normal_mode['K'] = nil
 lvim.builtin.which_key.mappings["r"] = {
   name = "Code Runner",
