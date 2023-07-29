@@ -61,7 +61,7 @@ require("ccc").setup({
 
 require("nvim-ts-autotag").setup()
 
-require("notebook")
+require("notebook").setup()
 
 require("luasnip").filetype_extend("typescriptreact", { "html" })
 
