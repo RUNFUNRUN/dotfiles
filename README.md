@@ -1,5 +1,7 @@
 # dotfiles
 
+My desktop(Arch Linux + Hyprland) and laptop(MacOS) configs
+
 Font: `JetBrainsMono Nerd Font`
 
 Arch Linux + Hyprland based by [https://github.com/JaKooLit/Hyprland-v3](https://github.com/JaKooLit/Hyprland-v3)
