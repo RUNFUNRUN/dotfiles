@@ -20,7 +20,6 @@
   "lspsaga.nvim": { "branch": "main", "commit": "b1b43c12be028330eb259de241449f5a64d3f26c" },
   "lualine.nvim": { "branch": "master", "commit": "84ffb80e452d95e2c46fa29a98ea11a240f7843e" },
   "lunar.nvim": { "branch": "master", "commit": "08bbc93b96ad698d22fc2aa01805786bcedc34b9" },
-  "magma-nvim": { "branch": "main", "commit": "ff3deba8a879806a51c005e50782130246143d06" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "7276ffffcf51a8304b5fd4b81293be4ee010ec47" },
   "mason.nvim": { "branch": "main", "commit": "057ac5ca159c83e302a55bd839a96ff1ea2396db" },
   "neodev.nvim": { "branch": "main", "commit": "0043cf91c18aeac8db5765eb86c6078e17ac9325" },
@@ -51,6 +50,7 @@
   "vim-illuminate": { "branch": "master", "commit": "a2907275a6899c570d16e95b9db5fd921c167502" },
   "vim-instant-markdown": { "branch": "master", "commit": "383aa2900f855eddc42ffbe9d636c54e2f2939d5" },
   "vim-sandwich": { "branch": "master", "commit": "c5a2cc438ce6ea2005c556dc833732aa53cae21a" },
+  "vim-typo": { "branch": "main", "commit": "37102c98b8da4c1ca5433591f0706c4838cb9022" },
   "vim-uppercase-sql": { "branch": "master", "commit": "58bfde1d679a1387dabfe292b38d51d84819b267" },
   "which-key.nvim": { "branch": "main", "commit": "4acffc92953a90a790603bfdab7c92319ab167b1" }
 }
