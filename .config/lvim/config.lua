@@ -174,6 +174,8 @@ local function is_eslint_config_present()
       or vim.fn.glob('.eslintrc.json')
       or vim.fn.glob('.eslintrc.js')
       or vim.fn.glob('.eslintrc.yml')
+      or vim.fn.glob('.eslintrc.yaml')
+      or vim.fn.glob('.eslintrcignore')
 
   -- Or check if eslint is present in package.json
   local package_json = vim.fn.glob('package.json')
