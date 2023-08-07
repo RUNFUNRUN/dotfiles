@@ -170,7 +170,8 @@ local linters = require "lvim.lsp.null-ls.linters"
 
 local function is_eslint_config_present()
   -- Check if eslint config file is present in the project root
-  local eslintrc = vim.fn.glob('.eslintrc.json')
+  local eslintrc = vim.fn.glob('.eslintrc')
+      or vim.fn.glob('.eslintrc.json')
       or vim.fn.glob('.eslintrc.js')
       or vim.fn.glob('.eslintrc.yml')
 
