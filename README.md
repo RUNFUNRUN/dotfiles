@@ -8,6 +8,11 @@ Arch Linux + Hyprland based by [https://github.com/JaKooLit/Hyprland-v3](https:/
 
 ![swappy-20230706-024705](https://github.com/RUNFUNRUN/dotfiles/assets/90281553/190a8838-b5fb-42c9-b021-54cf3de81f0d)
 
+Hyprland wallpaper
+```
+cp -r ./Pictures ~/
+```
+
 ```
 volta list
 ⚡️ Currently active tools:
