@@ -18,5 +18,6 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+source "$HOME/.cargo/env"
 
 alias clock='tty-clock -sc -C4'
