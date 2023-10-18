@@ -4,6 +4,7 @@ export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 export PATH="$HOME/.commands:$PATH"
 export PATH="$HOME/.bun/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 
 eval "$(github-copilot-cli alias -- "$0")"
 
@@ -19,6 +20,5 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-source "$HOME/.cargo/env"
 
 alias clock='tty-clock -sc -C4'
