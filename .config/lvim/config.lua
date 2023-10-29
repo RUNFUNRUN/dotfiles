@@ -80,15 +80,19 @@ vim.api.nvim_set_keymap('i', '<Right>', 'copilot#Accept("")', { expr = true, sil
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_assume_mapped = true
 
--- Hide the warning when opening a C file
-local original_notify = vim.notify
-local function custom_notify(msg, ...)
-  if msg:match("warning: multiple different client offset_encodings") then
-    return
-  end
-  original_notify(msg, ...)
-end
-vim.notify = custom_notify
+-- only wsl
+vim.g.clipboard = {
+  name = 'myClipboard',
+  copy = {
+    ['+'] = 'win32yank.exe -i',
+    ['*'] = 'win32yank.exe -i'
+  },
+  paste = {
+    ['+'] = 'win32yank.exe -o',
+    ['*'] = 'win32yank.exe -o'
+  },
+  cache_enabled = 1
+}
 
 -- general
 lvim.log.level = "warn"
@@ -165,11 +169,17 @@ lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 -- Automatically install missing parsers when entering buffer
 lvim.builtin.treesitter.auto_install = true
 
--- linter
-local linters = require "lvim.lsp.null-ls.linters"
+-- python lsp
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright" })
+lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
+  return server ~= "pylsp"
+end, lvim.lsp.automatic_configuration.skipped_servers)
 
+local linters = require "lvim.lsp.null-ls.linters"
+local formatters = require "lvim.lsp.null-ls.formatters"
+
+-- typescript linter
 local function is_eslint_config_present()
-  -- Check if eslint config file is present in the project root
   local eslintrc = vim.fn.glob('.eslintrc')
       or vim.fn.glob('.eslintrc.json')
       or vim.fn.glob('.eslintrc.js')
@@ -178,7 +188,6 @@ local function is_eslint_config_present()
       or vim.fn.glob('.eslintrc.yaml')
       or vim.fn.glob('.eslintrcignore')
 
-  -- Or check if eslint is present in package.json
   local package_json = vim.fn.glob('package.json')
   if package_json ~= '' then
     local content_lines = vim.fn.readfile(package_json)
@@ -200,11 +209,8 @@ if is_eslint_config_present() then
   }
 end
 
--- formatter
-local formatters = require "lvim.lsp.null-ls.formatters"
-
+-- typescript formatter
 local function is_prettier_config_present()
-  -- Check if prettier config file is present in the project root
   local prettierrc = vim.fn.glob('.prettierrc')
       or vim.fn.glob('.prettierrc.json')
       or vim.fn.glob('.prettierrc.yaml')
@@ -214,7 +220,6 @@ local function is_prettier_config_present()
       or vim.fn.glob('prettier.config.js')
       or vim.fn.glob('.prettierignore')
 
-  -- Or check if prettier is present in package.json
   local package_json = vim.fn.glob('package.json')
   if package_json ~= '' then
     local content_lines = vim.fn.readfile(package_json)
@@ -236,3 +241,13 @@ if is_prettier_config_present() then
     },
   }
 end
+
+-- Hide the warning when opening a C file
+local original_notify = vim.notify
+local function custom_notify(msg, ...)
+  if msg:match("warning: multiple different client offset_encodings") then
+    return
+  end
+  original_notify(msg, ...)
+end
+vim.notify = custom_notify
