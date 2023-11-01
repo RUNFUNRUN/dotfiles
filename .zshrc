@@ -1,3 +1,4 @@
+export TERM=xterm-256color
 export EDITOR='lvim'
 export PATH="$HOME/.local/bin":$PATH
 export VOLTA_HOME="$HOME/.volta"
@@ -25,3 +26,6 @@ source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 alias clock='tty-clock -sc -C4'
+
+# bun completions
+[ -s "/home/runfunrun/.bun/_bun" ] && source "/home/runfunrun/.bun/_bun"
