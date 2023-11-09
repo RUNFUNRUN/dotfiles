@@ -180,10 +180,8 @@ end, lvim.lsp.automatic_configuration.skipped_servers)
 local ts_lsp;
 if vim.fn.glob('package.json') ~= '' then
   ts_lsp = 'tsserver'
-  vim.cmd('autocmd bufenter *.ts,*.tsx echo "true"')
 else
   ts_lsp = 'denols'
-  vim.cmd('autocmd bufenter *.ts,*.tsx echo "false"')
 end
 
 vim.cmd('autocmd bufenter *.ts,*.tsx LvimCacheReset')
