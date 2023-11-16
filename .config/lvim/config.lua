@@ -76,6 +76,9 @@ vim.opt.fileencoding = 'utf-8'
 vim.opt.undofile = true
 vim.keymap.set('i', 'jj', '<Esc>', opts)
 vim.keymap.set('n', '<Esc><Esc>', '<Cmd>nohlsearch<CR>', opts)
+vim.keymap.set('n', '+', '<C-a>', opts)
+vim.keymap.set('n', '-', '<C-x>', opts)
+vim.keymap.set('n', '<C-a>', 'gg<S-v>G', opts)
 vim.api.nvim_set_keymap('i', '<Right>', 'copilot#Accept("")', { expr = true, silent = true })
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_assume_mapped = true
