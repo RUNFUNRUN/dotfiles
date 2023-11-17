@@ -14,6 +14,7 @@ lvim.plugins = {
   { 'preservim/tagbar' },
   { 'monaqa/dial.nvim' },
   { 'meatballs/notebook.nvim' },
+  { 'rcarriga/nvim-notify' },
 }
 
 require('code_runner').setup({
@@ -67,6 +68,13 @@ require('luasnip').filetype_extend('typescriptreact', { 'html' })
 
 require('luasnip').filetype_extend('javascriptreact', { 'html' })
 
+local notify = require('notify')
+notify.setup({
+  stages = 'static',
+  render = 'compact'
+})
+vim.notify = notify
+
 -- vim options
 local opts = { noremap = true, silent = true }
 vim.opt.shiftwidth = 2
@@ -75,10 +83,17 @@ vim.opt.clipboard = 'unnamedplus'
 vim.opt.fileencoding = 'utf-8'
 vim.opt.undofile = true
 vim.keymap.set('i', 'jj', '<Esc>', opts)
+vim.keymap.set('i', 'll', '<Esc>la', opts)
 vim.keymap.set('n', '<Esc><Esc>', '<Cmd>nohlsearch<CR>', opts)
 vim.keymap.set('n', '+', '<C-a>', opts)
 vim.keymap.set('n', '-', '<C-x>', opts)
 vim.keymap.set('n', '<C-a>', 'gg<S-v>G', opts)
+vim.keymap.set('n', 'sv', '<Cmd>vertical split<CR>', opts)
+vim.keymap.set('n', 'sh', '<Cmd>split<CR>', opts)
+vim.keymap.set('n', '<Enter>', 'o<Esc>', opts)
+vim.keymap.set('n', '<S-Enter>', 'O<Esc>', opts)
+vim.keymap.set('n', 's', '<Nop>', opts)
+vim.keymap.set('n', 'S', '<Nop>', opts)
 vim.api.nvim_set_keymap('i', '<Right>', 'copilot#Accept("")', { expr = true, silent = true })
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_assume_mapped = true
@@ -108,6 +123,7 @@ lvim.keys.normal_mode['<S-l>'] = '<Cmd>BufferLineCycleNext<CR>'
 lvim.keys.normal_mode['<S-h>'] = '<Cmd>BufferLineCyclePrev<CR>'
 lvim.keys.normal_mode['K'] = '<Cmd>Lspsaga hover_doc<CR>'
 lvim.lsp.buffer_mappings.normal_mode['K'] = nil
+lvim.builtin.which_key.mappings['C'] = { '<cmd>close<CR>', 'Close Window' }
 lvim.builtin.which_key.mappings['r'] = {
   name = 'Code Runner',
   r = { '<Cmd>RunCode<CR>', 'Run' },
