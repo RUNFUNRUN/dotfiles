@@ -14,7 +14,6 @@ lvim.plugins = {
   { 'preservim/tagbar' },
   { 'monaqa/dial.nvim' },
   { 'meatballs/notebook.nvim' },
-  { 'rcarriga/nvim-notify' },
 }
 
 require('code_runner').setup({
@@ -67,13 +66,6 @@ require('notebook').setup()
 require('luasnip').filetype_extend('typescriptreact', { 'html' })
 
 require('luasnip').filetype_extend('javascriptreact', { 'html' })
-
-local notify = require('notify')
-notify.setup({
-  stages = 'static',
-  render = 'compact'
-})
-vim.notify = notify
 
 -- vim options
 local opts = { noremap = true, silent = true }
