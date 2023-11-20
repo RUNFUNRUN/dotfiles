@@ -14,6 +14,11 @@ lvim.plugins = {
   { 'preservim/tagbar' },
   { 'monaqa/dial.nvim' },
   { 'meatballs/notebook.nvim' },
+  {
+    'Rawnly/gist.nvim',
+    cmd = { 'GistCreate', 'GistCreateFromFile', 'GistsList' },
+    config = true
+  },
 }
 
 require('code_runner').setup({
@@ -66,6 +71,16 @@ require('notebook').setup()
 require('luasnip').filetype_extend('typescriptreact', { 'html' })
 
 require('luasnip').filetype_extend('javascriptreact', { 'html' })
+
+require("gist").setup({
+  clipboard = "+",
+  list = {
+    mappings = {
+      next_file = "<S-l>",
+      prev_file = "<S-h>"
+    }
+  }
+})
 
 -- vim options
 local opts = { noremap = true, silent = true }
