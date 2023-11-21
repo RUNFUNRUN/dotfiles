@@ -24,6 +24,8 @@ lvim.plugins = {
     lazy = false,
     init = function() vim.g.unception_block_while_host_edits = true end
   },
+  { 'vuki656/package-info.nvim' },
+  { 'MunifTanjim/nui.nvim' },
 }
 
 require('code_runner').setup({
@@ -64,7 +66,7 @@ require('ccc').setup({
   highlighter = {
     auto_enable = true,
     filetypes = {
-      'css', 'html', 'astro', 'tsx', 'jsx', 'conf', 'yml', 'ini'
+      'css', 'html', 'astro', 'tsx', 'jsx', 'conf', 'yml', 'ini', 'lua'
     }
   }
 })
@@ -87,6 +89,12 @@ require("gist").setup({
   }
 })
 
+require('package-info').setup()
+
+require("nui.popup")
+require("nui.layout")
+
+
 -- vim options
 local opts = { noremap = true, silent = true }
 vim.opt.shiftwidth = 2
@@ -106,7 +114,7 @@ vim.keymap.set('n', '<Enter>', 'o<Esc>', opts)
 vim.keymap.set('n', '<S-Enter>', 'O<Esc>', opts)
 vim.keymap.set('n', 's', '<Nop>', opts)
 vim.keymap.set('n', 'S', '<Nop>', opts)
-vim.api.nvim_set_keymap('n', 'dd', ':lua Delete_line()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'dd', '<Cmd>lua Delete_line()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', '<Right>', 'copilot#Accept("")', { expr = true, silent = true })
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_assume_mapped = true
@@ -180,6 +188,16 @@ lvim.builtin.which_key.mappings['W'] = {
   l = { '<Cmd>vertical resize +5<CR>', 'Right' },
   k = { '<Cmd>resize -5<CR>', 'Up' },
   j = { '<Cmd>resize +5<CR>', 'Down' },
+}
+lvim.builtin.which_key.mappings['n'] = {
+  name = 'npm package info',
+  s = { "<Cmd>lua require('package-info').show({ force = true })<CR>", 'Show' },
+  h = { "<Cmd>lua require('package-info').hide()<CR>", 'Hide' },
+  t = { "<Cmd>lua require('package-info').toggle()<CR>", 'Toggle' },
+  u = { "<Cmd>lua require('package-info').update()<CR>", 'Update' },
+  d = { "<Cmd>lua require('package-info').delete()<CR>", 'Delete' },
+  p = { "<Cmd>lua require('package-info').change_version()<CR>", 'Change version' },
+  i = { "<Cmd>lua require('package-info').install()<CR>", 'Install' },
 }
 
 --theme settings
