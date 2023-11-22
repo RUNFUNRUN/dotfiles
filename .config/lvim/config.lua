@@ -103,7 +103,6 @@ vim.opt.clipboard = 'unnamedplus'
 vim.opt.fileencoding = 'utf-8'
 vim.opt.undofile = true
 vim.keymap.set('i', 'jj', '<Esc>', opts)
-vim.keymap.set('i', 'll', '<Esc>la', opts)
 vim.keymap.set('n', '<Esc><Esc>', '<Cmd>nohlsearch<CR>', opts)
 vim.keymap.set('n', '+', '<C-a>', opts)
 vim.keymap.set('n', '-', '<C-x>', opts)
