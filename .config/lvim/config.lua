@@ -26,6 +26,14 @@ lvim.plugins = {
   },
   { 'vuki656/package-info.nvim' },
   { 'MunifTanjim/nui.nvim' },
+  {
+    "google/vim-codefmt",
+    dependencies = { "google/vim-maktaba" }
+  },
+  {
+    "google/vim-glaive",
+    dependencies = { "google/vim-maktaba" }
+  },
 }
 
 require('code_runner').setup({
