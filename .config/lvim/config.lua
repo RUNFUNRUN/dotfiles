@@ -27,12 +27,12 @@ lvim.plugins = {
   { 'vuki656/package-info.nvim' },
   { 'MunifTanjim/nui.nvim' },
   {
-    "google/vim-codefmt",
-    dependencies = { "google/vim-maktaba" }
+    'google/vim-codefmt',
+    dependencies = { 'google/vim-maktaba' }
   },
   {
-    "google/vim-glaive",
-    dependencies = { "google/vim-maktaba" }
+    'google/vim-glaive',
+    dependencies = { 'google/vim-maktaba' }
   },
 }
 
@@ -87,21 +87,20 @@ require('luasnip').filetype_extend('typescriptreact', { 'html' })
 
 require('luasnip').filetype_extend('javascriptreact', { 'html' })
 
-require("gist").setup({
-  clipboard = "+",
+require('gist').setup({
+  clipboard = '+',
   list = {
     mappings = {
-      next_file = "<S-l>",
-      prev_file = "<S-h>"
+      next_file = '<S-l>',
+      prev_file = '<S-h>'
     }
   }
 })
 
 require('package-info').setup()
 
-require("nui.popup")
-require("nui.layout")
-
+require('nui.popup')
+require('nui.layout')
 
 -- vim options
 local opts = { noremap = true, silent = true }
@@ -128,7 +127,7 @@ vim.g.copilot_assume_mapped = true
 
 function Delete_line()
   local line = vim.api.nvim_get_current_line()
-  if string.match(line, "^%s*$") then
+  if string.match(line, '^%s*$') then
     vim.api.nvim_command('normal! "_dd')
   else
     vim.api.nvim_command('normal! dd')
