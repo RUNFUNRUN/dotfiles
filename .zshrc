@@ -28,4 +28,11 @@ source $ZSH/oh-my-zsh.sh
 [ -s "/home/runfunrun/.bun/_bun" ] && source "/home/runfunrun/.bun/_bun"
 
 alias icat="kitten icat"
+alias gd="git difftool --no-symlinks --dir-diff"
 alias clock="tty-clock -sc -C4"
+
+set_tab_title() {
+  local display_path="${PWD/#$HOME/~}"
+  echo -ne "\033]0;${display_path:t}\007"
+}
+precmd_functions+=(set_tab_title)

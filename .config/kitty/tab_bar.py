@@ -1,6 +1,6 @@
 from datetime import datetime
 import subprocess
-import json
+import re
 from kitty.boss import get_boss
 from kitty.fast_data_types import Screen, add_timer, get_options
 from kitty.utils import color_as_int
@@ -129,7 +129,6 @@ def _redraw_tab_bar(_):
 
 
 # Linux
-#
 # def get_battery_cells() -> list:
 #     try:
 #         with open("/sys/class/power_supply/BAT0/status", "r") as f:
@@ -164,57 +163,35 @@ def _redraw_tab_bar(_):
 #         return []
 
 # Mac
-def get_battery_status() -> dict:
-    try:
-        result = subprocess.run(
-            ['ioreg', '-rc', 'AppleSmartBattery'], stdout=subprocess.PIPE)
-
-        battery_info = json.loads(result.stdout.decode('utf-8'))[0]
-
-        current_capacity = battery_info['CurrentCapacity']
-        max_capacity = battery_info['MaxCapacity']
-        percentage = (current_capacity / max_capacity) * 100
-
-        is_charging = battery_info['IsCharging']
-        is_fully_charged = battery_info['FullyCharged']
-
-        return {
-            'percentage': percentage,
-            'is_charging': is_charging,
-            'is_fully_charged': is_fully_charged
-        }
-    except Exception:
-        return {}
-
-
 def get_battery_cells() -> list:
-    battery_status = get_battery_status()
+    try:
+        result = subprocess.run(['pmset', '-g', 'batt'],
+                                capture_output=True, text=True)
+        output = result.stdout
+        status_search = re.search(r'(\w+)\s*;', output)
+        percent_search = re.search(r'(\d+)%', output)
 
-    if not battery_status:
+        if status_search and percent_search:
+            status = status_search.group(1)
+            percent = int(percent_search.group(1))
+
+            if status == "discharging":
+                icon_color = UNPLUGGED_COLORS[min(
+                    UNPLUGGED_COLORS.keys(), key=lambda x: abs(x - percent))]
+                icon = UNPLUGGED_ICONS[min(
+                    UNPLUGGED_ICONS.keys(), key=lambda x: abs(x - percent))]
+            else:
+                icon_color = PLUGGED_COLORS[min(
+                    PLUGGED_COLORS.keys(), key=lambda x: abs(x - percent))]
+                icon = PLUGGED_ICONS[min(
+                    PLUGGED_ICONS.keys(), key=lambda x: abs(x - percent))]
+
+            percent_cell = (bat_text_color, str(percent) + "% ")
+            icon_cell = (icon_color, icon)
+            return [percent_cell, icon_cell]
+    except Exception as e:
+        print(f"Error: {e}")
         return []
-
-    percent = battery_status['percentage']
-    is_charging = battery_status['is_charging']
-    is_fully_charged = battery_status['is_fully_charged']
-
-    if not is_charging and not is_fully_charged:
-        icon_color = UNPLUGGED_COLORS[
-            min(UNPLUGGED_COLORS.keys(), key=lambda x: abs(x - percent))
-        ]
-        icon = UNPLUGGED_ICONS[
-            min(UNPLUGGED_ICONS.keys(), key=lambda x: abs(x - percent))
-        ]
-    else:
-        icon_color = PLUGGED_COLORS[
-            min(PLUGGED_COLORS.keys(), key=lambda x: abs(x - percent))
-        ]
-        icon = PLUGGED_ICONS[
-            min(PLUGGED_ICONS.keys(), key=lambda x: abs(x - percent))
-        ]
-
-    percent_cell = (bat_text_color, f"{percent:.0f}% ")
-    icon_cell = (icon_color, icon)
-    return [percent_cell, icon_cell]
 
 
 timer_id = None
