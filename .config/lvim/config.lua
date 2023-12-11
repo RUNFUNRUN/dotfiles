@@ -50,7 +50,7 @@ require('code_runner').setup({
       'java $fileNameWithoutExt'
     },
     python = 'python3',
-    typescript = 'deno run',
+    typescript = 'bun run',
     rust = {
       'cd $dir &&',
       'rustc $fileName &&',
@@ -242,18 +242,18 @@ end, lvim.lsp.automatic_configuration.skipped_servers)
 
 -- typescript lsp
 -- you must reopen the editor for this to take effect
-local ts_lsp;
-if vim.fn.glob('package.json') ~= '' then
-  ts_lsp = 'tsserver'
-else
-  ts_lsp = 'denols'
-end
+-- local ts_lsp;
+-- if vim.fn.glob('package.json') ~= '' then
+--   ts_lsp = 'tsserver'
+-- else
+--   ts_lsp = 'denols'
+-- end
 
-vim.cmd('autocmd bufenter *.ts,*.tsx LvimCacheReset')
-vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { 'tsserver' })
-lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
-  return server ~= ts_lsp
-end, lvim.lsp.automatic_configuration.skipped_servers)
+-- vim.cmd('autocmd bufenter *.ts,*.tsx LvimCacheReset')
+-- vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { 'tsserver' })
+-- lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
+--   return server ~= ts_lsp
+-- end, lvim.lsp.automatic_configuration.skipped_servers)
 
 local linters = require 'lvim.lsp.null-ls.linters'
 local formatters = require 'lvim.lsp.null-ls.formatters'
