@@ -120,7 +120,7 @@ vim.keymap.set('n', '<Enter>', 'o<Esc>', opts)
 vim.keymap.set('n', '<S-Enter>', 'O<Esc>', opts)
 vim.keymap.set('n', 's', '<Nop>', opts)
 vim.keymap.set('n', 'S', '<Nop>', opts)
-vim.api.nvim_set_keymap('n', 'dd', '<Cmd>lua Delete_line()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'dd', '<Cmd>lua Delete_line()<CR>', opts)
 vim.api.nvim_set_keymap('i', '<Right>', 'copilot#Accept("")', { expr = true, silent = true })
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_assume_mapped = true
