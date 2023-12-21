@@ -152,6 +152,7 @@ end
 lvim.log.level = 'warn'
 lvim.format_on_save.enabled = true
 lvim.leader = 'space'
+lvim.builtin.lir.show_hidden_files = true
 -- lvim.transparent_window = true
 
 -- add your own keymapping
