@@ -9,6 +9,7 @@ export PATH="$HOME/.bun/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export MODULAR_HOME="/home/runfunrun/.modular"
 export PATH="/home/runfunrun/.modular/pkg/packages.modular.com_mojo/bin:$PATH"
+export GPG_TTY=$(tty)
 
 eval "$(github-copilot-cli alias -- "$0")"
 
