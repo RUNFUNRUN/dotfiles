@@ -34,6 +34,7 @@ lvim.plugins = {
     'google/vim-glaive',
     dependencies = { 'google/vim-maktaba' }
   },
+  { 'nvimtools/none-ls.nvim' },
 }
 
 require('code_runner').setup({
@@ -135,18 +136,18 @@ function Delete_line()
 end
 
 -- only wsl
--- vim.g.clipboard = {
---   name = 'myClipboard',
---   copy = {
---     ['+'] = 'win32yank.exe -i --crlf',
---     ['*'] = 'win32yank.exe -i --crlf'
---   },
---   paste = {
---     ['+'] = 'win32yank.exe -o --lf',
---     ['*'] = 'win32yank.exe -o --lf'
---   },
---   cache_enabled = 1
--- }
+vim.g.clipboard = {
+  name = 'myClipboard',
+  copy = {
+    ['+'] = 'win32yank.exe -i --crlf',
+    ['*'] = 'win32yank.exe -i --crlf'
+  },
+  paste = {
+    ['+'] = 'win32yank.exe -o --lf',
+    ['*'] = 'win32yank.exe -o --lf'
+  },
+  cache_enabled = 1
+}
 
 -- general
 lvim.log.level = 'warn'
@@ -241,6 +242,12 @@ lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(serve
   return server ~= 'pylsp'
 end, lvim.lsp.automatic_configuration.skipped_servers)
 
+-- apply mdx filetype
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*.mdx",
+  command = "set filetype=markdown.mdx",
+})
+
 -- typescript lsp
 -- you must reopen the editor for this to take effect
 -- local ts_lsp;
@@ -258,6 +265,27 @@ end, lvim.lsp.automatic_configuration.skipped_servers)
 
 local linters = require 'lvim.lsp.null-ls.linters'
 local formatters = require 'lvim.lsp.null-ls.formatters'
+
+-- biome
+local function is_biome_config_present()
+  local biome = vim.fn.glob('biome.json')
+  return biome ~= ''
+end
+
+if is_biome_config_present() then
+  linters.setup {
+    {
+      exe = 'biome',
+      filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+    },
+  }
+  formatters.setup {
+    {
+      exe = 'biome',
+      filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+    },
+  }
+end
 
 -- typescript linter
 local function is_eslint_config_present()
