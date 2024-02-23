@@ -267,25 +267,25 @@ local linters = require 'lvim.lsp.null-ls.linters'
 local formatters = require 'lvim.lsp.null-ls.formatters'
 
 -- biome
-local function is_biome_config_present()
-  local biome = vim.fn.glob('biome.json')
-  return biome ~= ''
-end
+-- local function is_biome_config_present()
+--   local biome = vim.fn.glob('biome.json')
+--   return biome ~= ''
+-- end
 
-if is_biome_config_present() then
-  linters.setup {
-    {
-      exe = 'biome',
-      filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
-    },
-  }
-  formatters.setup {
-    {
-      exe = 'biome',
-      filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
-    },
-  }
-end
+-- if is_biome_config_present() then
+--   linters.setup {
+--     {
+--       exe = 'biome',
+--       filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+--     },
+--   }
+--   formatters.setup {
+--     {
+--       exe = 'biome',
+--       filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+--     },
+--   }
+-- end
 
 -- typescript linter
 local function is_eslint_config_present()
