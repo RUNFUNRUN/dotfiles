@@ -177,6 +177,12 @@ lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 -- Automatically install missing parsers when entering buffer
 lvim.builtin.treesitter.auto_install = true
 
+-- apply mdx filetype
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*.mdx",
+  command = "set filetype=markdown.mdx",
+})
+
 -- lsp settings
 local lspconfig = require('lspconfig')
 
@@ -205,11 +211,24 @@ lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(serve
   return server ~= 'pylsp'
 end, lvim.lsp.automatic_configuration.skipped_servers)
 
--- apply mdx filetype
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = "*.mdx",
-  command = "set filetype=markdown.mdx",
-})
+local biome_filename = {
+  'biome.json',
+  'biome.jsonc',
+}
+
+-- biome lsp(javascript, typescript)
+local function is_biome_config_present()
+  for _, filename in ipairs(biome_filename) do
+    if vim.fn.filereadable(filename) == 1 then
+      return true
+    end
+  end
+  return false
+end
+
+if is_biome_config_present() then
+  lspconfig.biome.setup({})
+end
 
 local linters = require 'lvim.lsp.null-ls.linters'
 local formatters = require 'lvim.lsp.null-ls.formatters'
