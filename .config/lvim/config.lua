@@ -211,12 +211,12 @@ lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(serve
   return server ~= 'pylsp'
 end, lvim.lsp.automatic_configuration.skipped_servers)
 
+-- biome lsp(javascript, typescript)
 local biome_filename = {
   'biome.json',
   'biome.jsonc',
 }
 
--- biome lsp(javascript, typescript)
 local function is_biome_config_present()
   for _, filename in ipairs(biome_filename) do
     if vim.fn.filereadable(filename) == 1 then
