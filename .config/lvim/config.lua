@@ -177,6 +177,28 @@ lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 -- Automatically install missing parsers when entering buffer
 lvim.builtin.treesitter.auto_install = true
 
+-- lsp settings
+local lspconfig = require('lspconfig')
+
+-- emmet lsp
+lspconfig.emmet_ls.setup({
+  filetypes = {
+    'css',
+    'html',
+    'javascript',
+    'javascriptreact',
+    'typescript',
+    'typescriptreact',
+    'astro',
+    'svelte',
+    'vue',
+    'less',
+    'sass',
+    'scss',
+    'pug',
+  },
+})
+
 -- python lsp
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { 'pyright' })
 lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
