@@ -5,27 +5,10 @@ lvim.plugins = {
   { 'nvimdev/lspsaga.nvim' },
   { 'suan/vim-instant-markdown' },
   { 'uga-rosa/ccc.nvim' },
-  { 'windwp/nvim-ts-autotag' },
   { 'jsborjesson/vim-uppercase-sql' },
   { 'preservim/tagbar' },
-  {
-    'samjwill/nvim-unception',
-    lazy = false,
-    init = function() vim.g.unception_block_while_host_edits = true end
-  },
   { 'vuki656/package-info.nvim' },
-  {
-    'google/vim-codefmt',
-    dependencies = { 'google/vim-maktaba' }
-  },
-  {
-    'google/vim-glaive',
-    dependencies = { 'google/vim-maktaba' }
-  },
 }
-
-require('luasnip').filetype_extend('typescriptreact', { 'html' })
-require('luasnip').filetype_extend('javascriptreact', { 'html' })
 
 require('lspsaga').setup({
   symbol_in_winbar = {
@@ -40,12 +23,22 @@ require('ccc').setup({
   highlighter = {
     auto_enable = true,
     filetypes = {
-      'css', 'html', 'astro', 'tsx', 'jsx', 'conf', 'yml', 'ini', 'lua'
+      'html',
+      'css',
+      'scss',
+      'sass',
+      'js',
+      'jsx',
+      'ts',
+      'tsx',
+      'astro',
+      'conf',
+      'yml',
+      'ini',
+      'lua'
     }
   }
 })
-
-require('nvim-ts-autotag').setup()
 
 require('package-info').setup()
 
@@ -105,15 +98,15 @@ lvim.builtin.lir.show_hidden_files = true
 -- add your own keymapping
 lvim.keys.normal_mode['<S-l>'] = '<Cmd>BufferLineCycleNext<CR>'
 lvim.keys.normal_mode['<S-h>'] = '<Cmd>BufferLineCyclePrev<CR>'
-lvim.keys.normal_mode['K'] = '<Cmd>Lspsaga hover_doc<CR>'
 lvim.lsp.buffer_mappings.normal_mode['K'] = nil
+lvim.keys.normal_mode['K'] = '<Cmd>Lspsaga hover_doc<CR>'
 lvim.builtin.which_key.mappings['C'] = { '<cmd>close<CR>', 'Close Window' }
 lvim.builtin.which_key.mappings['R'] = {
   '<Cmd>%s/。/．/g<CR> <Cmd>%s/、/，/g<CR> <Cmd>noh<CR>',
   'Replace symbol for TeX'
 }
 lvim.builtin.which_key.mappings['t'] = { '<cmd>TagbarToggle<CR>', 'Tagbar' }
-lvim.builtin.which_key.mappings['i'] = { '<cmd>CccPick<CR>', 'Color Picker' }
+lvim.builtin.which_key.mappings['P'] = { '<cmd>CccPick<CR>', 'Color Picker' }
 lvim.builtin.which_key.mappings['k'] = {
   name = 'LSPsaga',
   k = { '<Cmd>Lspsaga hover_doc<CR>', 'Hover Doc' },
@@ -184,10 +177,10 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 })
 
 -- lsp settings
-local lspconfig = require('lspconfig')
+local lspconfig = require('lvim.lsp.manager')
 
 -- emmet lsp
-lspconfig.emmet_ls.setup({
+lspconfig.setup('emmet_ls', {
   filetypes = {
     'css',
     'html',
@@ -205,12 +198,6 @@ lspconfig.emmet_ls.setup({
   },
 })
 
--- python lsp
-vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { 'pyright' })
-lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
-  return server ~= 'pylsp'
-end, lvim.lsp.automatic_configuration.skipped_servers)
-
 -- biome lsp(javascript, typescript)
 local biome_filename = {
   'biome.json',
@@ -227,12 +214,18 @@ local function is_biome_config_present()
 end
 
 if is_biome_config_present() then
-  lspconfig.biome.setup({})
+  lspconfig.setup('biome')
 end
 
+-- python lsp
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { 'pyright' })
+lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
+  return server ~= 'pylsp'
+end, lvim.lsp.automatic_configuration.skipped_servers)
+
 -- linter and formatter settings
-local linters = require 'lvim.lsp.null-ls.linters'
-local formatters = require 'lvim.lsp.null-ls.formatters'
+local linters = require('lvim.lsp.null-ls.linters')
+local formatters = require('lvim.lsp.null-ls.formatters')
 
 -- eslint
 local eslint_filename = {
@@ -260,7 +253,13 @@ if is_eslint_config_present() then
   linters.setup {
     {
       exe = 'eslint',
-      filetypes = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact', 'astro' },
+      filetypes = {
+        'typescript',
+        'typescriptreact',
+        'javascript',
+        'javascriptreact',
+        'astro',
+      },
     },
   }
 end
@@ -294,8 +293,18 @@ if is_prettier_config_present() then
   formatters.setup {
     {
       exe = 'prettier',
-      filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'json', 'html', 'css', 'scss',
-        'markdown' },
+      filetypes = {
+        'javascript',
+        'javascriptreact',
+        'typescript',
+        'typescriptreact',
+        'json',
+        'html',
+        'css',
+        'scss',
+        'astro',
+        'markdown',
+      },
     },
   }
 end
