@@ -74,20 +74,6 @@ function Delete_line()
   end
 end
 
--- only wsl
--- vim.g.clipboard = {
---   name = 'myClipboard',
---   copy = {
---     ['+'] = 'win32yank.exe -i --crlf',
---     ['*'] = 'win32yank.exe -i --crlf'
---   },
---   paste = {
---     ['+'] = 'win32yank.exe -o --lf',
---     ['*'] = 'win32yank.exe -o --lf'
---   },
---   cache_enabled = 1
--- }
-
 -- general
 lvim.log.level = 'warn'
 lvim.format_on_save.enabled = true
@@ -95,7 +81,7 @@ lvim.leader = 'space'
 lvim.builtin.lir.show_hidden_files = true
 -- lvim.transparent_window = true
 
--- add your own keymapping
+-- lvim keymappings
 lvim.keys.normal_mode['<S-l>'] = '<Cmd>BufferLineCycleNext<CR>'
 lvim.keys.normal_mode['<S-h>'] = '<Cmd>BufferLineCyclePrev<CR>'
 lvim.lsp.buffer_mappings.normal_mode['K'] = nil
@@ -142,7 +128,7 @@ lvim.builtin.which_key.mappings['n'] = {
   i = { "<Cmd>lua require('package-info').install()<CR>", 'Install' },
 }
 
---theme settings
+-- theme settings
 lvim.colorscheme = 'tokyonight'
 require('tokyonight').setup({
   style = 'moon',
@@ -153,6 +139,7 @@ require('tokyonight').setup({
   }
 })
 
+-- dashboard settings
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = 'dashboard'
 lvim.builtin.alpha.dashboard.section.header.val = {
@@ -179,7 +166,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 -- lsp settings
 local lspconfig = require('lvim.lsp.manager')
 
--- emmet lsp
+-- emmet
 lspconfig.setup('emmet_ls', {
   filetypes = {
     'css',
@@ -198,7 +185,7 @@ lspconfig.setup('emmet_ls', {
   },
 })
 
--- biome lsp(javascript, typescript)
+-- biome(javascript, typescript)
 local biome_filename = {
   'biome.json',
   'biome.jsonc',
@@ -217,53 +204,14 @@ if is_biome_config_present() then
   lspconfig.setup('biome')
 end
 
--- python lsp
+-- python
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { 'pyright' })
 lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
   return server ~= 'pylsp'
 end, lvim.lsp.automatic_configuration.skipped_servers)
 
--- linter and formatter settings
-local linters = require('lvim.lsp.null-ls.linters')
+-- formatter settings
 local formatters = require('lvim.lsp.null-ls.formatters')
-
--- eslint
-local eslint_filename = {
-  '.eslintrc',
-  '.eslintrc.json',
-  '.eslintrc.js',
-  '.eslintrc.cjs',
-  '.eslintrc.yml',
-  '.eslintrc.yaml',
-  'eslint.config.js',
-  'eslint.config.cjs',
-  'eslint.config.mjs',
-}
-
-local function is_eslint_config_present()
-  for _, filename in ipairs(eslint_filename) do
-    if vim.fn.filereadable(filename) == 1 then
-      return true
-    end
-  end
-  return false
-end
-
-if is_eslint_config_present() then
-  linters.setup {
-    {
-      exe = 'eslint',
-      filetypes = {
-        'typescript',
-        'typescriptreact',
-        'javascript',
-        'javascriptreact',
-        'astro',
-        'vue',
-      },
-    },
-  }
-end
 
 -- prettier
 local prettier_filename = {
@@ -313,3 +261,58 @@ if is_prettier_config_present() then
     },
   }
 end
+
+-- linters settings
+local linters = require('lvim.lsp.null-ls.linters')
+
+-- eslint
+local eslint_filename = {
+  '.eslintrc',
+  '.eslintrc.json',
+  '.eslintrc.js',
+  '.eslintrc.cjs',
+  '.eslintrc.yml',
+  '.eslintrc.yaml',
+  'eslint.config.js',
+  'eslint.config.cjs',
+  'eslint.config.mjs',
+}
+
+local function is_eslint_config_present()
+  for _, filename in ipairs(eslint_filename) do
+    if vim.fn.filereadable(filename) == 1 then
+      return true
+    end
+  end
+  return false
+end
+
+if is_eslint_config_present() then
+  linters.setup {
+    {
+      exe = 'eslint',
+      filetypes = {
+        'typescript',
+        'typescriptreact',
+        'javascript',
+        'javascriptreact',
+        'astro',
+        'vue',
+      },
+    },
+  }
+end
+
+-- only wsl
+-- vim.g.clipboard = {
+--   name = 'myClipboard',
+--   copy = {
+--     ['+'] = 'win32yank.exe -i --crlf',
+--     ['*'] = 'win32yank.exe -i --crlf'
+--   },
+--   paste = {
+--     ['+'] = 'win32yank.exe -o --lf',
+--     ['*'] = 'win32yank.exe -o --lf'
+--   },
+--   cache_enabled = 1
+-- }
