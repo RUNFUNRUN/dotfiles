@@ -168,6 +168,7 @@ local additional_servers = {
   'tsserver',
   'pyright',
 }
+
 local server_list = vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, additional_servers)
 lvim.lsp.automatic_configuration.skipped_servers = server_list
 
