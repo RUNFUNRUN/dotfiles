@@ -174,10 +174,8 @@ lvim.lsp.automatic_configuration.skipped_servers = server_list
 
 -- typescript
 local function is_packagejson_present()
-  for _, filename in ipairs({ 'package.json' }) do
-    if vim.fn.filereadable(filename) == 1 then
-      return true
-    end
+  if vim.fn.filereadable('package.json') == 1 then
+    return true
   end
   return false
 end
@@ -323,15 +321,15 @@ if is_eslint_config_present() then
 end
 
 -- only wsl
--- vim.g.clipboard = {
---   name = 'myClipboard',
---   copy = {
---     ['+'] = 'win32yank.exe -i --crlf',
---     ['*'] = 'win32yank.exe -i --crlf'
---   },
---   paste = {
---     ['+'] = 'win32yank.exe -o --lf',
---     ['*'] = 'win32yank.exe -o --lf'
---   },
---   cache_enabled = 1
--- }
+vim.g.clipboard = {
+  name = 'myClipboard',
+  copy = {
+    ['+'] = 'win32yank.exe -i --crlf',
+    ['*'] = 'win32yank.exe -i --crlf'
+  },
+  paste = {
+    ['+'] = 'win32yank.exe -o --lf',
+    ['*'] = 'win32yank.exe -o --lf'
+  },
+  cache_enabled = 1
+}
