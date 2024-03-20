@@ -79,7 +79,6 @@ lvim.log.level = 'warn'
 lvim.format_on_save.enabled = true
 lvim.leader = 'space'
 lvim.builtin.lir.show_hidden_files = true
--- lvim.transparent_window = true
 
 -- lvim keymappings
 lvim.keys.normal_mode['<S-l>'] = '<Cmd>BufferLineCycleNext<CR>'
@@ -164,6 +163,30 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 -- lsp settings
 local lspconfig = require('lvim.lsp.manager')
 
+-- set skipped servers
+local additional_servers = {
+  'tsserver',
+  'pyright',
+}
+local server_list = vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, additional_servers)
+lvim.lsp.automatic_configuration.skipped_servers = server_list
+
+-- typescript
+local function is_packagejson_present()
+  for _, filename in ipairs({ 'package.json' }) do
+    if vim.fn.filereadable(filename) == 1 then
+      return true
+    end
+  end
+  return false
+end
+
+if is_packagejson_present() then
+  lspconfig.setup('tsserver')
+else
+  lspconfig.setup('denols')
+end
+
 -- emmet
 lspconfig.setup('emmet_ls', {
   filetypes = {
@@ -183,7 +206,7 @@ lspconfig.setup('emmet_ls', {
   },
 })
 
--- biome(javascript, typescript)
+-- biome
 local biome_filename = {
   'biome.json',
   'biome.jsonc',
@@ -203,10 +226,7 @@ if is_biome_config_present() then
 end
 
 -- python
-vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { 'pyright' })
-lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
-  return server ~= 'pylsp'
-end, lvim.lsp.automatic_configuration.skipped_servers)
+lspconfig.setup('pylsp')
 
 -- formatter settings
 local formatters = require('lvim.lsp.null-ls.formatters')
