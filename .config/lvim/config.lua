@@ -321,15 +321,15 @@ if is_eslint_config_present() then
 end
 
 -- only wsl
-vim.g.clipboard = {
-  name = 'myClipboard',
-  copy = {
-    ['+'] = 'win32yank.exe -i --crlf',
-    ['*'] = 'win32yank.exe -i --crlf'
-  },
-  paste = {
-    ['+'] = 'win32yank.exe -o --lf',
-    ['*'] = 'win32yank.exe -o --lf'
-  },
-  cache_enabled = 1
-}
+-- vim.g.clipboard = {
+--   name = 'myClipboard',
+--   copy = {
+--     ['+'] = 'win32yank.exe -i --crlf',
+--     ['*'] = 'win32yank.exe -i --crlf'
+--   },
+--   paste = {
+--     ['+'] = 'win32yank.exe -o --lf',
+--     ['*'] = 'win32yank.exe -o --lf'
+--   },
+--   cache_enabled = 1
+-- }
