@@ -191,9 +191,7 @@ lspconfig.setup('emmet_ls', {
   filetypes = {
     'css',
     'html',
-    'javascript',
     'javascriptreact',
-    'typescript',
     'typescriptreact',
     'astro',
     'svelte',
