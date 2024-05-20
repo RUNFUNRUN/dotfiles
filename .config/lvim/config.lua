@@ -5,9 +5,21 @@ lvim.plugins = {
   { 'nvimdev/lspsaga.nvim' },
   { 'suan/vim-instant-markdown' },
   { 'uga-rosa/ccc.nvim' },
+  { 'brenoprata10/nvim-highlight-colors' },
   { 'jsborjesson/vim-uppercase-sql' },
   { 'preservim/tagbar' },
   { 'vuki656/package-info.nvim' },
+  {
+    'MysticalDevil/inlay-hints.nvim',
+    event = 'LspAttach',
+    dependencies = { 'neovim/nvim-lspconfig' },
+    config = function()
+      require('inlay-hints').setup({
+        commands = { enable = true },
+        autocmd = { enable = false },
+      })
+    end
+  },
 }
 
 require('lspsaga').setup({
@@ -16,28 +28,13 @@ require('lspsaga').setup({
   },
   lightbulb = {
     enable = false
-  }
+  },
 })
 
-require('ccc').setup({
-  highlighter = {
-    auto_enable = true,
-    filetypes = {
-      'html',
-      'css',
-      'scss',
-      'sass',
-      'js',
-      'jsx',
-      'ts',
-      'tsx',
-      'astro',
-      'conf',
-      'yml',
-      'ini',
-      'lua'
-    }
-  }
+require('ccc').setup()
+
+require('nvim-highlight-colors').setup({
+  enable_tailwind = true,
 })
 
 require('package-info').setup()
@@ -92,6 +89,7 @@ lvim.builtin.which_key.mappings['R'] = {
 }
 lvim.builtin.which_key.mappings['t'] = { '<cmd>TagbarToggle<CR>', 'Tagbar' }
 lvim.builtin.which_key.mappings['P'] = { '<cmd>CccPick<CR>', 'Color Picker' }
+lvim.builtin.which_key.mappings['i'] = { '<cmd>InlayHintsToggle<CR>', 'Inlay Hints' }
 lvim.builtin.which_key.mappings['k'] = {
   name = 'LSPsaga',
   k = { '<Cmd>Lspsaga hover_doc<CR>', 'Hover Doc' },
@@ -165,12 +163,26 @@ local lspconfig = require('lvim.lsp.manager')
 
 -- set skipped servers
 local additional_servers = {
+  'lua_ls',
   'tsserver',
   'pyright',
+  'rust_analyzer',
+  'jdtls',
 }
 
 local server_list = vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, additional_servers)
 lvim.lsp.automatic_configuration.skipped_servers = server_list
+
+-- lua
+lspconfig.setup('lua_ls', {
+  settings = {
+    Lua = {
+      hint = {
+        enable = true,
+      }
+    }
+  }
+})
 
 -- typescript
 local function is_packagejson_present()
@@ -181,9 +193,49 @@ local function is_packagejson_present()
 end
 
 if is_packagejson_present() then
-  lspconfig.setup('tsserver')
+  lspconfig.setup('tsserver', {
+    settings = {
+      typescript = {
+        inlayHints = {
+          includeInlayParameterNameHints = "all",
+          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayVariableTypeHints = true,
+          includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayEnumMemberValueHints = true,
+        },
+      },
+      javascript = {
+        inlayHints = {
+          includeInlayParameterNameHints = "all",
+          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayVariableTypeHints = true,
+          includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayEnumMemberValueHints = true,
+        },
+      },
+    }
+  })
 else
-  lspconfig.setup('denols')
+  lspconfig.setup('denols', {
+    settings = {
+      deno = {
+        inlayHints = {
+          parameterNames = { enabled = "all", suppressWhenArgumentMatchesName = true },
+          parameterTypes = { enabled = true },
+          variableTypes = { enabled = true, suppressWhenTypeMatchesName = true },
+          propertyDeclarationTypes = { enabled = true },
+          functionLikeReturnTypes = { enable = true },
+          enumMemberValues = { enabled = true },
+        },
+      }
+    }
+  })
 end
 
 -- emmet
@@ -223,7 +275,67 @@ if is_biome_config_present() then
 end
 
 -- python
-lspconfig.setup('pylsp')
+lspconfig.setup('pylyzer', {
+  settings = {
+    python = {
+      inlayHints = true
+    }
+  }
+})
+
+-- rust
+lspconfig.setup('rust_analyzer', {
+  settings = {
+    ["rust-analyzer"] = {
+      inlayHints = {
+        bindingModeHints = {
+          enable = false,
+        },
+        chainingHints = {
+          enable = true,
+        },
+        closingBraceHints = {
+          enable = true,
+          minLines = 25,
+        },
+        closureReturnTypeHints = {
+          enable = "never",
+        },
+        lifetimeElisionHints = {
+          enable = "never",
+          useParameterNames = false,
+        },
+        maxLength = 25,
+        parameterHints = {
+          enable = true,
+        },
+        reborrowHints = {
+          enable = "never",
+        },
+        renderColons = true,
+        typeHints = {
+          enable = true,
+          hideClosureInitialization = false,
+          hideNamedConstructor = false,
+        },
+      },
+    }
+  }
+})
+
+-- java
+lspconfig.setup('jdtls', {
+  settings = {
+    java = {
+      inlayHints = {
+        parameterNames = {
+          enabled = "all",
+          exclusions = { "this" },
+        },
+      },
+    }
+  }
+})
 
 -- formatter settings
 local formatters = require('lvim.lsp.null-ls.formatters')
