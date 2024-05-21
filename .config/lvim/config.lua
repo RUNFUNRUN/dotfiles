@@ -187,9 +187,9 @@ lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 lvim.builtin.treesitter.auto_install = true
 
 -- apply mdx filetype
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = "*.mdx",
-  command = "set filetype=markdown.mdx",
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+  pattern = '*.mdx',
+  command = 'set filetype=markdown.mdx',
 })
 
 -- lsp settings
@@ -231,7 +231,7 @@ if is_packagejson_present() then
     settings = {
       typescript = {
         inlayHints = {
-          includeInlayParameterNameHints = "all",
+          includeInlayParameterNameHints = 'all',
           includeInlayParameterNameHintsWhenArgumentMatchesName = true,
           includeInlayFunctionParameterTypeHints = true,
           includeInlayVariableTypeHints = true,
@@ -243,7 +243,7 @@ if is_packagejson_present() then
       },
       javascript = {
         inlayHints = {
-          includeInlayParameterNameHints = "all",
+          includeInlayParameterNameHints = 'all',
           includeInlayParameterNameHintsWhenArgumentMatchesName = true,
           includeInlayFunctionParameterTypeHints = true,
           includeInlayVariableTypeHints = true,
@@ -260,7 +260,7 @@ else
     settings = {
       deno = {
         inlayHints = {
-          parameterNames = { enabled = "all", suppressWhenArgumentMatchesName = true },
+          parameterNames = { enabled = 'all', suppressWhenArgumentMatchesName = true },
           parameterTypes = { enabled = true },
           variableTypes = { enabled = true, suppressWhenTypeMatchesName = true },
           propertyDeclarationTypes = { enabled = true },
@@ -320,7 +320,7 @@ lspconfig.setup('pylyzer', {
 -- rust
 lspconfig.setup('rust_analyzer', {
   settings = {
-    ["rust-analyzer"] = {
+    ['rust-analyzer'] = {
       inlayHints = {
         bindingModeHints = {
           enable = false,
@@ -333,10 +333,10 @@ lspconfig.setup('rust_analyzer', {
           minLines = 25,
         },
         closureReturnTypeHints = {
-          enable = "never",
+          enable = 'never',
         },
         lifetimeElisionHints = {
-          enable = "never",
+          enable = 'never',
           useParameterNames = false,
         },
         maxLength = 25,
@@ -344,7 +344,7 @@ lspconfig.setup('rust_analyzer', {
           enable = true,
         },
         reborrowHints = {
-          enable = "never",
+          enable = 'never',
         },
         renderColons = true,
         typeHints = {
@@ -363,8 +363,8 @@ lspconfig.setup('jdtls', {
     java = {
       inlayHints = {
         parameterNames = {
-          enabled = "all",
-          exclusions = { "this" },
+          enabled = 'all',
+          exclusions = { 'this' },
         },
       },
     }
