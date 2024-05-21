@@ -2,13 +2,41 @@
 lvim.plugins = {
   { 'github/copilot.vim' },
   { 'machakann/vim-sandwich' },
-  { 'nvimdev/lspsaga.nvim' },
-  { 'suan/vim-instant-markdown' },
-  { 'uga-rosa/ccc.nvim' },
-  { 'brenoprata10/nvim-highlight-colors' },
   { 'jsborjesson/vim-uppercase-sql' },
   { 'preservim/tagbar' },
-  { 'vuki656/package-info.nvim' },
+  {
+    'nvimdev/lspsaga.nvim',
+    config = function()
+      require('lspsaga').setup({
+        symbol_in_winbar = {
+          enable = false
+        },
+        lightbulb = {
+          enable = false
+        },
+      })
+    end
+  },
+  {
+    'uga-rosa/ccc.nvim',
+    config = function()
+      require('ccc').setup()
+    end
+  },
+  {
+    'brenoprata10/nvim-highlight-colors',
+    config = function()
+      require('nvim-highlight-colors').setup({
+        enable_tailwind = true,
+      })
+    end
+  },
+  {
+    'vuki656/package-info.nvim',
+    config = function()
+      require('package-info').setup()
+    end
+  },
   {
     'MysticalDevil/inlay-hints.nvim',
     event = 'LspAttach',
@@ -20,7 +48,15 @@ lvim.plugins = {
       })
     end
   },
-  -- only kitty term
+  {
+    'MeanderingProgrammer/markdown.nvim',
+    name = 'render-markdown',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      require('render-markdown').setup()
+    end,
+  },
+  -- only kitty term check here: https://github.com/3rd/image.nvim
   -- {
   --   'vhyrro/luarocks.nvim',
   --   priority = 1001,
@@ -31,28 +67,11 @@ lvim.plugins = {
   -- {
   --   '3rd/image.nvim',
   --   dependencies = { 'luarocks.nvim' },
+  --   config = function()
+  --     require('image').setup()
+  --   end
   -- },
 }
-
-require('lspsaga').setup({
-  symbol_in_winbar = {
-    enable = false
-  },
-  lightbulb = {
-    enable = false
-  },
-})
-
-require('ccc').setup()
-
-require('nvim-highlight-colors').setup({
-  enable_tailwind = true,
-})
-
-require('package-info').setup()
-
--- only kitty term
--- require('image').setup()
 
 -- vim options
 local opts = { noremap = true, silent = true }
