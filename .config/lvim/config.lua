@@ -20,6 +20,18 @@ lvim.plugins = {
       })
     end
   },
+  -- only kitty term
+  -- {
+  --   'vhyrro/luarocks.nvim',
+  --   priority = 1001,
+  --   opts = {
+  --     rocks = { 'magick' },
+  --   },
+  -- },
+  -- {
+  --   '3rd/image.nvim',
+  --   dependencies = { 'luarocks.nvim' },
+  -- },
 }
 
 require('lspsaga').setup({
@@ -38,6 +50,9 @@ require('nvim-highlight-colors').setup({
 })
 
 require('package-info').setup()
+
+-- only kitty term
+-- require('image').setup()
 
 -- vim options
 local opts = { noremap = true, silent = true }
