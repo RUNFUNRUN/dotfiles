@@ -56,6 +56,13 @@ lvim.plugins = {
       require('render-markdown').setup()
     end,
   },
+  -- discord rich presence check here: https://github.com/andweeb/presence.nvim
+  {
+    'andweeb/presence.nvim',
+    config = function()
+      require('presence').setup()
+    end
+  },
   -- only kitty term check here: https://github.com/3rd/image.nvim
   -- {
   --   'vhyrro/luarocks.nvim',
