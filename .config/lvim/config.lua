@@ -98,12 +98,12 @@ vim.keymap.set('n', '<Enter>', 'o<Esc>', opts)
 vim.keymap.set('n', '<S-Enter>', 'O<Esc>', opts)
 vim.keymap.set('n', 's', '<Nop>', opts)
 vim.keymap.set('n', 'S', '<Nop>', opts)
-vim.api.nvim_set_keymap('n', 'dd', '<Cmd>lua Delete_line()<CR>', opts)
+vim.api.nvim_set_keymap('n', 'dd', '<Cmd>lua delete_line()<CR>', opts)
 vim.api.nvim_set_keymap('i', '<Right>', 'copilot#Accept("")', { expr = true, silent = true })
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_assume_mapped = true
 
-function Delete_line()
+function delete_line()
   local line = vim.api.nvim_get_current_line()
   if string.match(line, '^%s*$') then
     vim.api.nvim_command('normal! "_dd')
