@@ -5,12 +5,6 @@ lvim.plugins = {
   { 'jsborjesson/vim-uppercase-sql' },
   { 'preservim/tagbar' },
   {
-    'ryoppippi/ray-so.vim',
-    dependencies = {
-      'vim-denops/denops.vim',
-    },
-  },
-  {
     'nvimdev/lspsaga.nvim',
     config = function()
       require('lspsaga').setup({
@@ -108,10 +102,6 @@ vim.api.nvim_set_keymap('n', 'dd', '<Cmd>lua Delete_line()<CR>', opts)
 -- vim.api.nvim_set_keymap('i', '<Right>', 'copilot#Accept("")', { expr = true, silent = true })
 -- vim.g.copilot_no_tab_map = true
 -- vim.g.copilot_assume_mapped = true
-
--- ray.so config
-vim.g.ray_so_theme = 'candy'
-vim.g.ray_so_padding = 32
 
 function Delete_line()
   local line = vim.api.nvim_get_current_line()
