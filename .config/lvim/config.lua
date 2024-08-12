@@ -198,6 +198,8 @@ lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = 'left'
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 lvim.builtin.treesitter.auto_install = true
+lvim.builtin.lualine.sections.lualine_a = { 'mode' }
+lvim.builtin.lualine.sections.lualine_b = { 'branch' }
 
 -- apply mdx filetype
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
