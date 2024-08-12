@@ -5,6 +5,12 @@ lvim.plugins = {
   { 'jsborjesson/vim-uppercase-sql' },
   { 'preservim/tagbar' },
   {
+    'windwp/nvim-ts-autotag',
+    config = function()
+      require('nvim-ts-autotag').setup()
+    end
+  },
+  {
     'nvimdev/lspsaga.nvim',
     config = function()
       require('lspsaga').setup({
