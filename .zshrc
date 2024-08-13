@@ -1,6 +1,5 @@
-export TERM=xterm-256color
-export EDITOR='lvim'
-export PATH="$HOME/.local/bin":$PATH
+export TERM="xterm-256color"
+export EDITOR="nvim"
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 export PATH="$HOME/.commands:$PATH"
@@ -10,6 +9,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export MODULAR_HOME="/home/runfunrun/.modular"
 export PATH="/home/runfunrun/.modular/pkg/packages.modular.com_mojo/bin:$PATH"
 export GPG_TTY=$(tty)
+export NGC_CLI_API_KEY="YXEzMjdtb3RwOWM1aTAzNmV2cGlzazZhM286MTM0ZjcxZTktN2I5NS00MTczLTlkZjEtYWQ4MzU0YjhmM2Vm"
 
 eval "$(github-copilot-cli alias -- "$0")"
 
@@ -26,14 +26,11 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-[ -s "/home/runfunrun/.bun/_bun" ] && source "/home/runfunrun/.bun/_bun"
-
-alias icat="kitten icat"
-alias gd="git difftool --no-symlinks --dir-diff"
 alias clock="tty-clock -sc -C4"
 
-set_tab_title() {
-  local display_path="${PWD/#$HOME/~}"
-  echo -ne "\033]0;${display_path:t}\007"
-}
-precmd_functions+=(set_tab_title)
+# bun completions
+[ -s "/home/runfunrun/.bun/_bun" ] && source "/home/runfunrun/.bun/_bun"
+
+[ -f ~/.inshellisense/key-bindings.zsh ] && source ~/.inshellisense/key-bindings.zsh
+
+export PATH="/home/runfunrun/Documents/buntin/commands/bin:$PATH"
