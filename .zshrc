@@ -9,7 +9,6 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export MODULAR_HOME="/home/runfunrun/.modular"
 export PATH="/home/runfunrun/.modular/pkg/packages.modular.com_mojo/bin:$PATH"
 export GPG_TTY=$(tty)
-export NGC_CLI_API_KEY="YXEzMjdtb3RwOWM1aTAzNmV2cGlzazZhM286MTM0ZjcxZTktN2I5NS00MTczLTlkZjEtYWQ4MzU0YjhmM2Vm"
 
 eval "$(github-copilot-cli alias -- "$0")"
 
