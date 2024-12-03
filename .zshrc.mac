@@ -1,4 +1,4 @@
-export TERM="xterm-256color"
+export TERM="xterm-kitty"
 export EDITOR="nvim"
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
@@ -10,6 +10,9 @@ export PATH="$HOME/.local/nvim-macos/bin:$PATH"
 export DYLD_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_LIBRARY_PATH"
 export GPG_TTY=$(tty)
 export DISPLAY=:0
+export PATH="$HOME/.jenv/bin:$PATH"
+
+eval "$(jenv init -)"
 
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME=""
@@ -17,10 +20,13 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 eval "$(starship init zsh)"
 
-eval "$(github-copilot-cli alias -- "$0")"
+eval "$(jenv init -)"
 
 [ -s "/home/runfunrun/.bun/_bun" ] && source "/home/runfunrun/.bun/_bun"
 
+alias python="python3"
+alias pip="pip3"
+alias pydoc="pydoc3"
 alias icat="kitten icat"
 alias gd="git difftool --no-symlinks --dir-diff"
 alias clock="tty-clock -sc -C4"
