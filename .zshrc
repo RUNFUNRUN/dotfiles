@@ -18,8 +18,4 @@ eval "$(github-copilot-cli alias -- "$0")"
 
 alias clock="tty-clock -sc -C4"
 
-# bun completions
-[ -s "/home/runfunrun/.bun/_bun" ] && source "/home/runfunrun/.bun/_bun"
-
-# my commands install
 export COMMANDS_INSTALL="/home/runfunrun/projects/buntin/commands"

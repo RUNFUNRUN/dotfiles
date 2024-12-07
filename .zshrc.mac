@@ -22,8 +22,6 @@ eval "$(starship init zsh)"
 
 eval "$(jenv init -)"
 
-[ -s "/home/runfunrun/.bun/_bun" ] && source "/home/runfunrun/.bun/_bun"
-
 alias python="python3"
 alias pip="pip3"
 alias pydoc="pydoc3"
